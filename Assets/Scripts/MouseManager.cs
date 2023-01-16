@@ -2,13 +2,25 @@ using UnityEngine;
 using System;
 using UnityEngine.Events;
 
-[System.Serializable]
-public class EventVector3 : UnityEvent<Vector3> { }
+//通过拖拽方式+引擎内可视化面板 来操作点击事件
+//[System.Serializable]
+//public class EventVector3 : UnityEvent<Vector3> { }
 
 public class MouseManager : MonoBehaviour
 {
+    public static MouseManager Instance;
+    //鼠标样式
+    public Texture2D point, doorway, attack, target, arrow;
     RaycastHit hitInfo;
-    public EventVector3 OnMouseClicked;
+    //public EventVector3 OnMouseClicked;
+    public event Action<Vector3> OnMouseClicked;
+    public event Action<GameObject> OnEnemyClicked; 
+    void Awake()
+    {
+        if (Instance != null)
+            Destroy(gameObject);
+        Instance = this;
+    }
 
     // Update is called once per frame
     void Update()
@@ -22,14 +34,16 @@ public class MouseManager : MonoBehaviour
         {
             if (hitInfo.collider.gameObject.CompareTag("Ground"))
                 OnMouseClicked?.Invoke(hitInfo.point);
-            /*if (hitInfo.collider.gameObject.CompareTag("Enemy"))
+            if (hitInfo.collider.gameObject.CompareTag("Enemy"))
                 OnEnemyClicked?.Invoke(hitInfo.collider.gameObject);
+            /*
             if (hitInfo.collider.gameObject.CompareTag("Attackable"))
                 OnEnemyClicked?.Invoke(hitInfo.collider.gameObject);
             if (hitInfo.collider.gameObject.CompareTag("Portal"))
                 OnMouseClicked?.Invoke(hitInfo.point);
             if (hitInfo.collider.gameObject.CompareTag("Item"))
-                OnMouseClicked?.Invoke(hitInfo.point);*/
+                OnMouseClicked?.Invoke(hitInfo.point);
+            */
         }
     }
     void setCursorTexture()
@@ -37,7 +51,15 @@ public class MouseManager : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if(Physics.Raycast(ray,out hitInfo))
         {
-
+            switch (hitInfo.collider.gameObject.tag)
+            {
+                case "Ground":
+                    Cursor.SetCursor(target, new Vector2(16, 16), CursorMode.Auto);
+                    break;
+                case "Enemy":
+                    Cursor.SetCursor(attack, new Vector2(16, 16), CursorMode.Auto);
+                    break;
+            }
         }
     }
 }
