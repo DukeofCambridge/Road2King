@@ -215,6 +215,7 @@ MonoBehaviour:
   sightRadius: 8
   type: 0
   patrolRange: 8
+  watchTime: 3
 --- !u!195 &7794436282591789178
 NavMeshAgent:
   m_ObjectHideFlags: 0

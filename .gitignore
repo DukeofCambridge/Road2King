@@ -1,1 +1,14 @@
 /Library/
+/Logs/
+/.idea/
+/.vs/
+/Boxophobic.Utils.Scripts.csproj
+/Road2King.sln
+/Unity.Polybrush.Editor.csproj
+/Unity.Polybrush.csproj
+/Boxophobic.Utils.Editor.csproj
+/Boxophobic.SkyboxCubemapExtended.Editor.csproj
+/.vsconfig
+/Assembly-CSharp-Editor.csproj
+/Assembly-CSharp.csproj
+/obj/
