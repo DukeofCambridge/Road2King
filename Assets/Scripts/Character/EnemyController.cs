@@ -25,7 +25,7 @@ public class EnemyController : MonoBehaviour, IEndGameObserver
    
     [Header("Basic Settings")]
     public float sightRadius;
-    private GameObject atkTarget;
+    protected GameObject atkTarget;
     private float speed;          //怪物移动标准速度
     public int type;          //敌人类型 0-站桩 1-巡逻
     [Header("Patrol State")]
@@ -138,7 +138,8 @@ public class EnemyController : MonoBehaviour, IEndGameObserver
         walk = false;
         ready4atk = true;
         agent.speed = speed;
-        if (FindPlayer())
+        //攻击冷却时间内不允许追击
+        if (FindPlayer()&&CD<=0)
         {
             remainedWatchTime = watchTime; //为了使玩家脱离敌人视野时，敌人仍能原地驻足片刻（如果巡逻敌人在望风过程中发现敌人，望风时间已经损耗一部分，会减少脱战时的望风时间）
             follow = true;
@@ -225,7 +226,8 @@ public class EnemyController : MonoBehaviour, IEndGameObserver
     void Death()
     {
         collider.enabled = false;
-        agent.enabled = false;
+        //agent.enabled = false;
+        agent.radius = 0;
         Destroy(gameObject, 2f);
     }
     //选中敌人时绘制其视野范围和巡逻范围
@@ -280,7 +282,8 @@ public class EnemyController : MonoBehaviour, IEndGameObserver
     //动画关键帧触发打击效果
     void hit()
     {
-        if (atkTarget != null)
+        //判断攻击目标是否处于攻击扇区内（面前）
+        if (atkTarget != null && transform.IsFacingTarget(atkTarget.transform))
         {
             var targetData = atkTarget.GetComponent<CharacterData>();
             targetData.takeDamage(data, targetData);
