@@ -5,7 +5,9 @@ using UnityEngine.AI;
 
 public enum EnemyState { GUARD, PATROL, ATTACK, DEAD}
 [RequireComponent(typeof(NavMeshAgent))]
-public class EnemyController : MonoBehaviour
+[RequireComponent(typeof(CharacterData))]
+[RequireComponent(typeof(BoxCollider))]
+public class EnemyController : MonoBehaviour, IEndGameObserver
 {
     private NavMeshAgent agent;
     private Animator anim;
@@ -18,6 +20,7 @@ public class EnemyController : MonoBehaviour
     bool ready4atk;
     bool follow;
     bool dead;
+    bool win;       //玩家死亡
     
    
     [Header("Basic Settings")]
@@ -56,16 +59,29 @@ public class EnemyController : MonoBehaviour
             state = EnemyState.PATROL;
             getNewDestination();
         }
+        GameManager.Instance.AddObserver(this);
     }
     private void Update()
     {
         dead = data.curHealth == 0;
-        switchState();
-        switchAnimation();
-        CD -= Time.deltaTime;
+        if (!win)
+        {
+            SwitchState();
+            SwitchAnimation();
+            CD -= Time.deltaTime;
+        }
+    }
+    //private void OnEnable()
+    //{
+    //    GameManager.Instance.AddObserver(this);
+    //}
+    private void OnDisable()
+    {
+        if (!GameManager.isInitialized) return;
+        GameManager.Instance.RemoveObserver(this);
     }
     //动画控制器
-    void switchAnimation()
+    void SwitchAnimation()
     {
         anim.SetBool("walk", walk);
         anim.SetBool("ready4atk", ready4atk);
@@ -75,13 +91,13 @@ public class EnemyController : MonoBehaviour
     }
     
     //怪物状态控制器
-    void switchState()
+    void SwitchState()
     {
         if (dead)
         {
             state = EnemyState.DEAD;
         }
-        else if (findPlayer())
+        else if (FindPlayer())
         {
             state = EnemyState.ATTACK;
             //Debug.Log("GOTCHA!");
@@ -89,20 +105,20 @@ public class EnemyController : MonoBehaviour
         switch (state)
         {
             case EnemyState.ATTACK:
-                chase();
+                Chase();
                 break;
             case EnemyState.PATROL:
-                patrol();
+                Patrol();
                 break;
             case EnemyState.GUARD:
-                guard();
+                Guard();
                 break;
             case EnemyState.DEAD:
-                death();
+                Death();
                 break;
         }
     }
-    bool findPlayer()
+    bool FindPlayer()
     {
         var colliders = Physics.OverlapSphere(transform.position, sightRadius);
         foreach (var target in colliders)
@@ -117,12 +133,12 @@ public class EnemyController : MonoBehaviour
         return false;
     }
     //追击状态逻辑
-    void chase()
+    void Chase()
     {
         walk = false;
         ready4atk = true;
         agent.speed = speed;
-        if (findPlayer())
+        if (FindPlayer())
         {
             remainedWatchTime = watchTime; //为了使玩家脱离敌人视野时，敌人仍能原地驻足片刻（如果巡逻敌人在望风过程中发现敌人，望风时间已经损耗一部分，会减少脱战时的望风时间）
             follow = true;
@@ -163,7 +179,7 @@ public class EnemyController : MonoBehaviour
         }
     }
     //巡逻状态逻辑
-    void patrol()
+    void Patrol()
     {
         ready4atk = false;
         agent.speed = speed * 0.5f;
@@ -190,7 +206,7 @@ public class EnemyController : MonoBehaviour
         }
     }
     //守卫状态逻辑
-    void guard()
+    void Guard()
     {
         ready4atk = false;
         if (transform.position != guardPoint)
@@ -206,17 +222,19 @@ public class EnemyController : MonoBehaviour
         }
     }
     //死亡状态逻辑
-    void death()
+    void Death()
     {
         collider.enabled = false;
         agent.enabled = false;
         Destroy(gameObject, 2f);
     }
-    //选中敌人时绘制其视野范围
+    //选中敌人时绘制其视野范围和巡逻范围
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, sightRadius);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, patrolRange);
     }
     //巡逻范围内随机选择一点
     void getNewDestination()
@@ -267,5 +285,15 @@ public class EnemyController : MonoBehaviour
             var targetData = atkTarget.GetComponent<CharacterData>();
             targetData.takeDamage(data, targetData);
         }
+    }
+
+    public void GetNotified()
+    {
+        anim.SetBool("win", true);
+        walk = false;
+        ready4atk = false;
+        follow = false;
+        atkTarget = null;
+        //agent.isStopped = true;
     }
 }

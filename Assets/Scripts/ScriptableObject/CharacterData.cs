@@ -5,11 +5,21 @@ using UnityEngine;
 
 public class CharacterData : MonoBehaviour
 {
+    public CharacterData_SO templateData;
     public CharacterData_SO characterData;
     public AttackData_SO attackData;
 
     [HideInInspector]
     public bool isCritical;
+
+    private void Awake()
+    {
+        //以该类型怪物的数据作为模板，分别做一份拷贝给该类型的每个怪物
+        if (templateData != null)
+        {
+            characterData = Instantiate(templateData);
+        }
+    }
     #region R/W from Data_SO
     public int maxHealth
     {
@@ -39,8 +49,9 @@ public class CharacterData : MonoBehaviour
         int damage = Mathf.Max(attacker.revisedDamage() - defender.totalDefence,0);
         curHealth = Mathf.Max(curHealth - damage, 0);
         //暴击时触发被攻击者的受击动画
-        if (isCritical)
+        if (attacker.isCritical)
         {
+            //Debug.Log("暴击攻击！");
             defender.GetComponent<Animator>().SetTrigger("hit");
         }
     }

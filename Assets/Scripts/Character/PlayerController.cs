@@ -22,40 +22,48 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         //指令类型
-        MouseManager.Instance.OnMouseClicked += move2Target;
+        MouseManager.Instance.OnMouseClicked += Move2Target;
         MouseManager.Instance.OnEnemyClicked += EventAttack;
+        GameManager.Instance.RegisterPlayer(data);
     }
     void Update()
     {
         dead = data.curHealth == 0;
-        switchAnimation();
+        //玩家死亡，广播给所有敌人
+        if (dead)
+        {
+            GameManager.Instance.NotifyObservers();
+        }
+        SwitchAnimation();
         CD -= Time.deltaTime;
     }
-    private void switchAnimation()
+    private void SwitchAnimation()
     {
         animator.SetFloat("speed", agent.velocity.sqrMagnitude);
         animator.SetBool("dead", dead);
     }
     //移动指令
-    public void move2Target(Vector3 target)
+    public void Move2Target(Vector3 target)
     {
         //取消其他行动
         StopAllCoroutines();
+        if (dead) return;
         agent.isStopped = false;
         agent.destination = target;
     }
     //攻击指令
     public void EventAttack(GameObject obj)
     {
+        if (dead) return;
         if (obj != null)
         {
             attackObj = obj;
             data.isCritical = UnityEngine.Random.value < data.attackData.criticalRate;
-            StartCoroutine(move2Attack());
+            StartCoroutine(Move2Attack());
         }
         
     }
-    IEnumerator move2Attack()
+    IEnumerator Move2Attack()
     {
         agent.isStopped = false;
         //转向攻击目标

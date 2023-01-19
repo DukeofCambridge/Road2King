@@ -17,5 +17,5 @@ MonoBehaviour:
   cooldown: 2
   criticalMultiplier: 2
   criticalRate: 0.2
-  minDamage: 2
+  minDamage: 3
   maxDamage: 4
