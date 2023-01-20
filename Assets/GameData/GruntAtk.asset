@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f21386d6b6b39124896260d75af6bec2, type: 3}
   m_Name: GruntAtk
   m_EditorClassIdentifier: 
-  attackRange: 2.5
-  skillRange: 1.6
+  attackRange: 2.7
+  skillRange: 2.1
   cooldown: 3
   criticalMultiplier: 2
-  criticalRate: 0.2
+  criticalRate: 1
   minDamage: 6
   maxDamage: 8

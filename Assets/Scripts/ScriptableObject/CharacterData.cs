@@ -8,6 +8,7 @@ public class CharacterData : MonoBehaviour
     public CharacterData_SO templateData;
     public CharacterData_SO characterData;
     public AttackData_SO attackData;
+    public bool broken;       //¶¯×÷±»´ò¶Ï
 
     [HideInInspector]
     public bool isCritical;
@@ -52,8 +53,18 @@ public class CharacterData : MonoBehaviour
         if (attacker.isCritical)
         {
             //Debug.Log("±©»÷¹¥»÷£¡");
+            defender.broken = true;  //´ò¶Ï¹¥»÷
             defender.GetComponent<Animator>().SetTrigger("hit");
+            
         }
+    }
+    public void takeDamage(int damage, CharacterData defender)
+    {
+        int calcDamage = Mathf.Max(damage - defender.totalDefence, 0);
+        curHealth = Mathf.Max(curHealth - calcDamage, 0);
+        defender.broken = true;  //´ò¶Ï¹¥»÷
+        defender.GetComponent<Animator>().SetTrigger("hit");
+        
     }
     //¹¥»÷ÕßµÄÐÞÕýÉËº¦
     private int revisedDamage()

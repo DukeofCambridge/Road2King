@@ -34,14 +34,12 @@ public class MouseManager : Singleton<MouseManager>
                 OnMouseClicked?.Invoke(hitInfo.point);
             if (hitInfo.collider.gameObject.CompareTag("Enemy"))
                 OnEnemyClicked?.Invoke(hitInfo.collider.gameObject);
-            /*
             if (hitInfo.collider.gameObject.CompareTag("Attackable"))
                 OnEnemyClicked?.Invoke(hitInfo.collider.gameObject);
-            if (hitInfo.collider.gameObject.CompareTag("Portal"))
-                OnMouseClicked?.Invoke(hitInfo.point);
-            if (hitInfo.collider.gameObject.CompareTag("Item"))
-                OnMouseClicked?.Invoke(hitInfo.point);
-            */
+            //if (hitInfo.collider.gameObject.CompareTag("Portal"))
+            //    OnMouseClicked?.Invoke(hitInfo.point);
+            //if (hitInfo.collider.gameObject.CompareTag("Item"))
+            //    OnMouseClicked?.Invoke(hitInfo.point);
         }
     }
     void setCursorTexture()
