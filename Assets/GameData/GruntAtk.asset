@@ -16,6 +16,6 @@ MonoBehaviour:
   skillRange: 2.1
   cooldown: 3
   criticalMultiplier: 2
-  criticalRate: 1
+  criticalRate: 0.2
   minDamage: 6
   maxDamage: 8

@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4398495507978469092
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7319188733831208813}
+  m_Layer: 0
+  m_Name: HealthBarPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7319188733831208813
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4398495507978469092}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 7792684858807817204}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7793620316486754042
 GameObject:
   m_ObjectHideFlags: 0
@@ -144,6 +175,7 @@ GameObject:
   - component: {fileID: 7794436282591789179}
   - component: {fileID: 7794436282591789178}
   - component: {fileID: 1781805480}
+  - component: {fileID: 3096800702319414080}
   m_Layer: 7
   m_Name: SlimePBR
   m_TagString: Enemy
@@ -165,6 +197,7 @@ Transform:
   m_Children:
   - {fileID: 7792577833023358946}
   - {fileID: 7792862380156147704}
+  - {fileID: 7319188733831208813}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 159.364, z: 0}
@@ -254,7 +287,24 @@ MonoBehaviour:
   templateData: {fileID: 11400000, guid: 4890518df7b882f4f87da4edfd66b811, type: 2}
   characterData: {fileID: 0}
   attackData: {fileID: 11400000, guid: aea54b2b66c40414aa03de01b449a158, type: 2}
+  broken: 0
   isCritical: 0
+--- !u!114 &3096800702319414080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7795088653103183434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8eca3dc44ebd9c488bd09b5346032d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HealthBarPrefab: {fileID: 4689955287528609753, guid: b7ac46c1e5c72c94295dbf6fcf93bb4a, type: 3}
+  barPos: {fileID: 7319188733831208813}
+  AlwaysVisible: 0
+  visibleTime: 0
 --- !u!1 &7795222707075004722
 GameObject:
   m_ObjectHideFlags: 0

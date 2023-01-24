@@ -100,6 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   damage: 20
+  breakEffect: {fileID: 2230515662583206443, guid: 93ad564857ebfe146a9a34ff3bbb5fa1, type: 3}
   force: 20
   target: {fileID: 0}
 --- !u!54 &2072729669816756741

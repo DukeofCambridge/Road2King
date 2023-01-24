@@ -10,10 +10,12 @@ public class RockController : MonoBehaviour
     private Vector3 direction;
     public RockState state;
     public int damage;
+    public GameObject breakEffect;
 
     [Header("Basic Settings")]
     public float force;
     public GameObject target;
+    
 
     private void Start()
     {
@@ -51,7 +53,7 @@ public class RockController : MonoBehaviour
                     other.gameObject.GetComponent<NavMeshAgent>().isStopped = true;
                     other.gameObject.GetComponent<NavMeshAgent>().velocity = direction * force;
                     //other.gameObject.GetComponent<Animator>().SetTrigger("dizzy");
-                    other.gameObject.GetComponent<CharacterData>().takeDamage(damage, other.gameObject.GetComponent<CharacterData>());
+                    other.gameObject.GetComponent<CharacterData>().TakeDamage(damage, other.gameObject.GetComponent<CharacterData>());
                     state = RockState.Still;
                 }
                 break;
@@ -59,7 +61,8 @@ public class RockController : MonoBehaviour
                 if (other.gameObject.GetComponent<GolemController>())
                 {
                     var otherData = other.gameObject.GetComponent<CharacterData>();
-                    otherData.takeDamage(damage, otherData);
+                    otherData.TakeDamage(damage, otherData);
+                    Instantiate(breakEffect, transform.position, Quaternion.identity);
                     Destroy(gameObject);
                 }
                 break;

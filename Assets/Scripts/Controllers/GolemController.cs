@@ -20,7 +20,7 @@ public class GolemController : EnemyController
             atkTarget.GetComponent<NavMeshAgent>().velocity = direction * kickForce;
             atkTarget.GetComponent<Animator>().SetTrigger("dizzy");
             var targetData = atkTarget.GetComponent<CharacterData>();
-            targetData.takeDamage(data, targetData);
+            targetData.TakeDamage(data, targetData);
         }
     }
     public void ThrowRock()

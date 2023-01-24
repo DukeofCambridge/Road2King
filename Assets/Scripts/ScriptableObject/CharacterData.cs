@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class CharacterData : MonoBehaviour
 {
+    public event Action<int, int> UpdateHealthBarOnAttacked;
     public CharacterData_SO templateData;
     public CharacterData_SO characterData;
     public AttackData_SO attackData;
@@ -44,10 +45,11 @@ public class CharacterData : MonoBehaviour
     }
     #endregion
     #region Battle_Calc
-    public void takeDamage(CharacterData attacker,CharacterData defender)
+    //直接伤害
+    public void TakeDamage(CharacterData attacker,CharacterData defender)
     {
         //结算伤害=攻击者修正伤害-受击者防御力
-        int damage = Mathf.Max(attacker.revisedDamage() - defender.totalDefence,0);
+        int damage = Mathf.Max(attacker.RevisedDamage() - defender.totalDefence,0);
         curHealth = Mathf.Max(curHealth - damage, 0);
         //暴击时触发被攻击者的受击动画
         if (attacker.isCritical)
@@ -57,17 +59,31 @@ public class CharacterData : MonoBehaviour
             defender.GetComponent<Animator>().SetTrigger("hit");
             
         }
+        //更新UI
+        UpdateHealthBarOnAttacked?.Invoke(curHealth, maxHealth);
+        if (curHealth <= 0)
+        {
+            //击杀敌人为玩家提供EXP
+            attacker.characterData.UpdateExp(characterData.rewardEXP);
+            //TODO:提升攻击力防御力
+        }
     }
-    public void takeDamage(int damage, CharacterData defender)
+    //非直接伤害（如石头撞击）
+    public void TakeDamage(int damage, CharacterData defender)
     {
         int calcDamage = Mathf.Max(damage - defender.totalDefence, 0);
         curHealth = Mathf.Max(curHealth - calcDamage, 0);
         defender.broken = true;  //打断攻击
         defender.GetComponent<Animator>().SetTrigger("hit");
-        
+        //更新UI
+        UpdateHealthBarOnAttacked?.Invoke(curHealth, maxHealth);
+        if (curHealth <= 0)
+        {
+            GameManager.Instance.playerData.characterData.UpdateExp(characterData.rewardEXP);
+        }
     }
     //攻击者的修正伤害
-    private int revisedDamage()
+    private int RevisedDamage()
     {
         float damage = UnityEngine.Random.Range(attackData.minDamage, attackData.maxDamage);
         if (isCritical)

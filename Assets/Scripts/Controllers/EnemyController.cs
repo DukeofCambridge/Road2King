@@ -288,7 +288,7 @@ public class EnemyController : MonoBehaviour, IEndGameObserver
         if (atkTarget != null && transform.IsFacingTarget(atkTarget.transform)&&!data.broken)
         {
             var targetData = atkTarget.GetComponent<CharacterData>();
-            targetData.takeDamage(data, targetData);
+            targetData.TakeDamage(data, targetData);
         }
     }
 

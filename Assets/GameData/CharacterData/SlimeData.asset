@@ -16,3 +16,9 @@ MonoBehaviour:
   curHealth: 30
   basDefence: 2
   totalDefence: 2
+  rewardEXP: 15
+  curLevel: 0
+  maxLevel: 0
+  exp: 0
+  exp4levelUP: 0
+  levelBuff: 0

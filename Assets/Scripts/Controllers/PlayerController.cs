@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour
         }
         SwitchAnimation();
         CD -= Time.deltaTime;
+        //TODO:实现脱战一段时间后自动回血
     }
     private void SwitchAnimation()
     {
@@ -122,7 +123,7 @@ public class PlayerController : MonoBehaviour
         else if(attackObj != null && !data.broken)
         {
             var targetData = attackObj.GetComponent<CharacterData>();
-            targetData.takeDamage(data, targetData);
+            targetData.TakeDamage(data, targetData);
         }
 
     }
