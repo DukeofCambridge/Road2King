@@ -18,7 +18,7 @@ public class MouseManager : Singleton<MouseManager>
     protected override void Awake()
     {
         base.Awake();
-        //DontDestroyOnLoad(this);
+        DontDestroyOnLoad(this);
     }
     // Update is called once per frame
     void Update()
@@ -36,8 +36,8 @@ public class MouseManager : Singleton<MouseManager>
                 OnEnemyClicked?.Invoke(hitInfo.collider.gameObject);
             if (hitInfo.collider.gameObject.CompareTag("Attackable"))
                 OnEnemyClicked?.Invoke(hitInfo.collider.gameObject);
-            //if (hitInfo.collider.gameObject.CompareTag("Portal"))
-            //    OnMouseClicked?.Invoke(hitInfo.point);
+            if (hitInfo.collider.gameObject.CompareTag("Portal"))
+                OnMouseClicked?.Invoke(hitInfo.point);
             //if (hitInfo.collider.gameObject.CompareTag("Item"))
             //    OnMouseClicked?.Invoke(hitInfo.point);
         }
@@ -54,6 +54,9 @@ public class MouseManager : Singleton<MouseManager>
                     break;
                 case "Enemy":
                     Cursor.SetCursor(attack, new Vector2(16, 16), CursorMode.Auto);
+                    break;
+                case "Portal":
+                    Cursor.SetCursor(doorway, new Vector2(16, 16), CursorMode.Auto);
                     break;
             }
         }

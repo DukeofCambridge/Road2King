@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   maxHealth: 110
-  curHealth: 110
+  curHealth: 182
   basDefence: 2
   totalDefence: 2
   rewardEXP: 0

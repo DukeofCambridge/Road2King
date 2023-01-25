@@ -879,7 +879,7 @@ MonoBehaviour:
   HealthBarPrefab: {fileID: 4689955287528609753, guid: b7ac46c1e5c72c94295dbf6fcf93bb4a, type: 3}
   barPos: {fileID: 6905235260351920372}
   AlwaysVisible: 0
-  visibleTime: 0
+  visibleTime: 5
 --- !u!1 &1180223981446204378
 GameObject:
   m_ObjectHideFlags: 0

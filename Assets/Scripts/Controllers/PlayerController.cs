@@ -20,13 +20,22 @@ public class PlayerController : MonoBehaviour
         data = GetComponent<CharacterData>();
         stopDistance = agent.stoppingDistance;
     }
-    
-    void Start()
+    private void OnEnable()
     {
-        //指令类型
         MouseManager.Instance.OnMouseClicked += Move2Target;
         MouseManager.Instance.OnEnemyClicked += EventAttack;
+    }
+    void Start()
+    {
         GameManager.Instance.RegisterPlayer(data);
+    }
+
+    //防止切换场景报错
+    private void OnDisable()
+    {
+        if (!MouseManager.isInitialized) return;
+        MouseManager.Instance.OnMouseClicked -= Move2Target;
+        MouseManager.Instance.OnEnemyClicked -= EventAttack;
     }
     void Update()
     {
