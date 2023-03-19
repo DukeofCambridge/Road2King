@@ -9,8 +9,10 @@ public class CharacterData : MonoBehaviour
     public CharacterData_SO templateData;
     public CharacterData_SO characterData;
     public AttackData_SO attackData;
+    public AttackData_SO bas_atkData;
     public bool broken;       //动作被打断
-
+    [Header("Weapon")]
+    public Transform weaponPos;
     [HideInInspector]
     public bool isCritical;
 
@@ -21,6 +23,8 @@ public class CharacterData : MonoBehaviour
         {
             characterData = Instantiate(templateData);
         }
+        bas_atkData = Instantiate(attackData);
+        InventoryManager.Instance.UpdatePlayerDataText(maxHealth, attackData.minDamage, attackData.maxDamage);
     }
     #region R/W from Data_SO
     public int maxHealth
@@ -94,4 +98,36 @@ public class CharacterData : MonoBehaviour
     }
 
     #endregion
+    #region 装备穿脱
+    public void ChangeWeapon(ItemData_SO weapon)
+    {
+        Unwield();
+        EquipWeapon(weapon);
+    }
+    public void EquipWeapon(ItemData_SO weapon)
+    {
+        if (weapon.prefab != null)
+        {
+            Instantiate(weapon.prefab, weaponPos);
+        }
+        attackData.SetUp(weapon.weaponData);
+        InventoryManager.Instance.UpdatePlayerDataText(maxHealth, attackData.minDamage, attackData.maxDamage);
+    }
+    public void Unwield()
+    {
+        if (weaponPos.transform.childCount != 0)
+        {
+            for(int i = 0; i < weaponPos.transform.childCount;++i)
+            {
+                Destroy(weaponPos.transform.GetChild(i).gameObject);
+            }
+        }
+        attackData.SetUp(bas_atkData); //还原默认值
+        InventoryManager.Instance.UpdatePlayerDataText(maxHealth, attackData.minDamage, attackData.maxDamage);
+    }
+    #endregion
+    public void Heal(int point)
+    {
+        curHealth = curHealth + point > maxHealth ? maxHealth : curHealth + point;
+    }
 }

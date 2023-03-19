@@ -37,5 +37,6 @@ public class CharacterData_SO : ScriptableObject
 
         maxHealth = (int)(maxHealth * (1+levelBuff));
         curHealth = maxHealth;
+        InventoryManager.Instance.UpdatePlayerDataText(maxHealth);
     }
 }

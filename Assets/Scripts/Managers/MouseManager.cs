@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 //通过拖拽方式+引擎内可视化面板 来操作点击事件
 //[System.Serializable]
@@ -24,6 +25,7 @@ public class MouseManager : Singleton<MouseManager>
     void Update()
     {
         setCursorTexture();
+        if (isInteractWithUI()) return;
         mouseControl();
     }
     void mouseControl()
@@ -38,8 +40,8 @@ public class MouseManager : Singleton<MouseManager>
                 OnEnemyClicked?.Invoke(hitInfo.collider.gameObject);
             if (hitInfo.collider.gameObject.CompareTag("Portal"))
                 OnMouseClicked?.Invoke(hitInfo.point);
-            //if (hitInfo.collider.gameObject.CompareTag("Item"))
-            //    OnMouseClicked?.Invoke(hitInfo.point);
+            if (hitInfo.collider.gameObject.CompareTag("Item"))
+                OnMouseClicked?.Invoke(hitInfo.point);
         }
     }
     void setCursorTexture()
@@ -58,10 +60,24 @@ public class MouseManager : Singleton<MouseManager>
                 case "Portal":
                     Cursor.SetCursor(doorway, new Vector2(16, 16), CursorMode.Auto);
                     break;
+                case "Item":
+                    Cursor.SetCursor(point, new Vector2(16, 16), CursorMode.Auto);
+                    break;
                 default:
                     Cursor.SetCursor(arrow, new Vector2(16, 16), CursorMode.Auto);
                     break;
             }
+        }
+    }
+    bool isInteractWithUI()
+    {
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }

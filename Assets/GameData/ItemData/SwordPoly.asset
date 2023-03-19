@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba35ebab7d8d33d4691a13ddeeae1b51, type: 3}
+  m_Name: SwordPoly
+  m_EditorClassIdentifier: 
+  type: 0
+  name: Iron Sword
+  icon: {fileID: 21300000, guid: c37343e3d6e059d448005c6ddf222e34, type: 3}
+  amount: 1
+  description: "\u4E00\u628A\u666E\u901A\u7684\u94C1\u5251"
+  stackAmount: 1
+  prefab: {fileID: 1426137324128326985, guid: d76262d1c7eccf643abc2b7a1ed68eb2, type: 3}
+  weaponData: {fileID: 11400000, guid: 3592abb3ca32ee24db36a86f8cb955f5, type: 2}

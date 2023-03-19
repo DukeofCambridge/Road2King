@@ -11,4 +11,12 @@ public class AttackData_SO : ScriptableObject
     public float criticalRate;
     public float minDamage;
     public float maxDamage;
+    public void SetUp(AttackData_SO weapon)
+    {
+        attackRange = weapon.attackRange;
+        skillRange = weapon.skillRange;
+        cooldown = weapon.cooldown;
+        minDamage = weapon.minDamage;
+        maxDamage = weapon.maxDamage;
+    }
 }
