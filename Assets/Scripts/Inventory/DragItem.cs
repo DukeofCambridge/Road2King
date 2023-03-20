@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(ItemUI))]
 public class DragItem : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDragHandler
 {
-    ItemUI curItemUI;   //µ±Ç°ÍÏ×§¶ÔÏó
+    ItemUI curItemUI;   //å½“å‰æ‹–æ‹½å¯¹è±¡
     SlotManager origin; 
     SlotManager target;
     private void Awake()
@@ -19,12 +19,12 @@ public class DragItem : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDragHan
         InventoryManager.Instance.curDrag = new InventoryManager.DragData();
         InventoryManager.Instance.curDrag.originalSlot = GetComponentInParent<SlotManager>();
         InventoryManager.Instance.curDrag.originalParent = (RectTransform)transform.parent;
-        transform.SetParent(InventoryManager.Instance.DragCanvas.transform, true); //ÍÏ×§Ê±Î»ÓÚdragcanvasÉÏ£¬´Ó¶øÎ»ÓÚUI×îÉÏ²ã
+        transform.SetParent(InventoryManager.Instance.DragCanvas.transform, true); //æ‹–æ‹½æ—¶ä½äºdragcanvasä¸Šï¼Œä»è€Œä½äºUIæœ€ä¸Šå±‚
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        transform.position = eventData.position;  //ÊµÊ±¸úËæÊó±êÒÆ¶¯
+        transform.position = eventData.position;  //å®æ—¶è·Ÿéšé¼ æ ‡ç§»åŠ¨
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -64,25 +64,25 @@ public class DragItem : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDragHan
                 target.UpdateItem();
             }
         }
-        //ÍÏ×§½áÊøÊ±»Øµ½Ô­ÓĞ¸¸¼¶ÔªËØ£¨±³°üpanel£©
+        //æ‹–æ‹½ç»“æŸæ—¶å›åˆ°åŸæœ‰çˆ¶çº§å…ƒç´ ï¼ˆèƒŒåŒ…panelï¼‰
         transform.SetParent(InventoryManager.Instance.curDrag.originalParent);
         RectTransform t = transform as RectTransform;
-        //±£Ö¤¸ñ×ÓÍÏ×§½áÊøºó·ÅÔÚºÏÊÊÎ»ÖÃÉÏ
+        //ä¿è¯æ ¼å­æ‹–æ‹½ç»“æŸåæ”¾åœ¨åˆé€‚ä½ç½®ä¸Š
         t.offsetMax = -Vector2.one * 10;
         t.offsetMin = Vector2.one * 10;
     }
     public void SwapItem()
     {
-        //targetÊÇslot£¬¼´Ò»¸ö¸ñ×Ó£¬±³°üÓë¸ñ×ÓÊÇË«Ïò¸ĞÖªµÄ£¬¼´Ò»¸ö±³°üÖªµÀÎÒÓĞÄÄĞ©¸ñ×Ó£¬Ã¿¸ö¸ñ×ÓÒ²ÖªµÀÎÒÊôÓÚÄÄ¸ö±³°ü£¨Ò²ÖªµÀ×Ô¼ºÔÚÕâ¸ö±³°üÖĞµÄĞòºÅ£©£¬itemsÊÇÒ»¸öÁĞ±í£¬ÓÃindexÈ¡³ö¶ÔÓ¦ĞòºÅµÄÎïÆ·
+        //targetæ˜¯slotï¼Œå³ä¸€ä¸ªæ ¼å­ï¼ŒèƒŒåŒ…ä¸æ ¼å­æ˜¯åŒå‘æ„ŸçŸ¥çš„ï¼Œå³ä¸€ä¸ªèƒŒåŒ…çŸ¥é“æˆ‘æœ‰å“ªäº›æ ¼å­ï¼Œæ¯ä¸ªæ ¼å­ä¹ŸçŸ¥é“æˆ‘å±äºå“ªä¸ªèƒŒåŒ…ï¼ˆä¹ŸçŸ¥é“è‡ªå·±åœ¨è¿™ä¸ªèƒŒåŒ…ä¸­çš„åºå·ï¼‰ï¼Œitemsæ˜¯ä¸€ä¸ªåˆ—è¡¨ï¼Œç”¨indexå–å‡ºå¯¹åº”åºå·çš„ç‰©å“
         var targetItem = target.itemUI.bag.items[target.itemUI.index];
         var temp = origin.itemUI.bag.items[origin.itemUI.index];
         if (target.itemUI.bag == origin.itemUI.bag && target.itemUI.index == origin.itemUI.index)
         {
-            return;  //Í¬Ò»¸ñ×Ó
+            return;  //åŒä¸€æ ¼å­
         }
         //Debug.Log(temp.ItemData.name);
         bool isSameItem = temp.ItemData == targetItem.ItemData;
-        if (isSameItem && targetItem.ItemData.stackAmount > 1)  //¿É¶Ñµş
+        if (isSameItem && targetItem.ItemData.stackAmount > 1)  //å¯å †å 
         {
             targetItem.amount += temp.amount;
             temp.ItemData = null;
@@ -90,8 +90,8 @@ public class DragItem : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDragHan
         }
         else
         {
-            //ÕâÀïÉæ¼°µ½½»»»Á½¸öÒıÓÃÀàĞÍ±äÁ¿£¬origin,target,tempÊÇ3¸öµØÖ·Öµ£¬Æğ³õoriginºÍtempÖ¸ÏòÍ¬Ò»¸ö¶ÔÏó£¬ÏÖÔÚÈÃoriginºÍtarget·Ö±ğÖ¸Ïò¶Ô·½Ô­±¾ËùÖ¸µÄ¶ÔÏó¡£
-            //Ò²¾ÍÊÇËµÏÂÃæÕâÒ»ĞĞ²¢Ã»ÓĞ°ÑoriginÖ¸ÏòµÄ¶ÔÏó¸²¸Çµô£¬Ö»ÊÇ°ÑtargetÕâ¸öµØÖ·±äÁ¿µÄÖµ¸³¸øoriginÁË¶øÒÑ£¬tempÒÀÈ»Ö¸ÏòoriginÔ­±¾ËùÖ¸µÄ¶ÔÏó¡£
+            //è¿™é‡Œæ¶‰åŠåˆ°äº¤æ¢ä¸¤ä¸ªå¼•ç”¨ç±»å‹å˜é‡ï¼Œorigin,target,tempæ˜¯3ä¸ªåœ°å€å€¼ï¼Œèµ·åˆoriginå’ŒtempæŒ‡å‘åŒä¸€ä¸ªå¯¹è±¡ï¼Œç°åœ¨è®©originå’Œtargetåˆ†åˆ«æŒ‡å‘å¯¹æ–¹åŸæœ¬æ‰€æŒ‡çš„å¯¹è±¡ã€‚
+            //ä¹Ÿå°±æ˜¯è¯´ä¸‹é¢è¿™ä¸€è¡Œå¹¶æ²¡æœ‰æŠŠoriginæŒ‡å‘çš„å¯¹è±¡è¦†ç›–æ‰ï¼Œåªæ˜¯æŠŠtargetè¿™ä¸ªåœ°å€å˜é‡çš„å€¼èµ‹ç»™originäº†è€Œå·²ï¼Œtempä¾ç„¶æŒ‡å‘originåŸæœ¬æ‰€æŒ‡çš„å¯¹è±¡ã€‚
             origin.itemUI.bag.items[origin.itemUI.index] = targetItem;
             //Debug.Log(temp.ItemData.name);
             target.itemUI.bag.items[target.itemUI.index] = temp;

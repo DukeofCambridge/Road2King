@@ -16,6 +16,7 @@ public class ItemData_SO : ScriptableObject
     [Header("Weapon")]
     public GameObject prefab;
     public AttackData_SO weaponData;
+    public AnimatorOverrideController anim; //武器对应的动画
     [Header("Consumables")]
     public ConsumableData_SO consumeData;
 }

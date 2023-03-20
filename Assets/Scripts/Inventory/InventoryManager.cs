@@ -27,6 +27,8 @@ public class InventoryManager : Singleton<InventoryManager>
     [Header("Drag Canvas")]
     public Canvas DragCanvas;
     public DragData curDrag;
+    [Header("Tooltip")]
+    public ItemTooltip tooltip;
     private void Start()
     {
         Instance.BagUI.UpdateUI();

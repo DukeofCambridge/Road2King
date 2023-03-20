@@ -4,16 +4,19 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 public enum SlotType { bag,armor,weapon,action} //action bar指可以随时使用的随身物品（类似Terraria快捷键1-9），bag是背包
-public class SlotManager : MonoBehaviour,IPointerClickHandler
+public class SlotManager : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public ItemUI itemUI;
     public SlotType type;
-
+    private void OnDisable()
+    {
+        InventoryManager.Instance.tooltip.gameObject.SetActive(false);
+    }
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.clickCount % 2 == 0)//双击
         {
-
+            UseItem();
         }
     }
     public void UseItem()
@@ -59,5 +62,20 @@ public class SlotManager : MonoBehaviour,IPointerClickHandler
         var item = itemUI.bag.items[itemUI.index]; //找到对应背包的对应位置的数据
         //Debug.Log(item.ItemData.name);
         itemUI.UpdateUI(item.ItemData, item.amount);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        InventoryManager.Instance.tooltip.gameObject.SetActive(false);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (itemUI.GetItem())
+        {
+            InventoryManager.Instance.tooltip.SetUpTooltip(itemUI.GetItem());
+            InventoryManager.Instance.tooltip.gameObject.SetActive(true);
+            InventoryManager.Instance.tooltip.UpdatePosition();
+        }
     }
 }

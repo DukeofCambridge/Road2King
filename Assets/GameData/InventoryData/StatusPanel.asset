@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StatusPanel
   m_EditorClassIdentifier: 
   items:
-  - ItemData: {fileID: 11400000, guid: 189d86ed491d9664b89d1811114bc628, type: 2}
+  - ItemData: {fileID: 0}
     amount: 1
   - ItemData: {fileID: 0}
     amount: 0

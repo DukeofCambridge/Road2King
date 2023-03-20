@@ -20,3 +20,5 @@ MonoBehaviour:
   stackAmount: 1
   prefab: {fileID: 1426137324128326985, guid: d76262d1c7eccf643abc2b7a1ed68eb2, type: 3}
   weaponData: {fileID: 11400000, guid: 3592abb3ca32ee24db36a86f8cb955f5, type: 2}
+  anim: {fileID: 22100000, guid: 1a2bfa6f6d4c3844ca6b1847c90acec7, type: 2}
+  consumeData: {fileID: 0}

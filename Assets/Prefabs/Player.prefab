@@ -1522,7 +1522,7 @@ Animator:
   m_GameObject: {fileID: 7136114697504780705}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: a58d63122b09e9144938cd6a1ece4824, type: 3}
-  m_Controller: {fileID: 9100000, guid: e37c1acd37db7df4f80c1f799e95a202, type: 2}
+  m_Controller: {fileID: 22100000, guid: 85412b405a74da743a3580be22bbccfe, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1595,7 +1595,6 @@ MonoBehaviour:
   templateData: {fileID: 11400000, guid: 2b6808305531c06408effb1db0f3b2f7, type: 2}
   characterData: {fileID: 0}
   attackData: {fileID: 11400000, guid: d2b49d752012e8146abfd194f8ffc75a, type: 2}
-  bas_atkData: {fileID: 0}
   broken: 0
   weaponPos: {fileID: 7136114697504353393}
   isCritical: 0
@@ -2749,6 +2748,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: b20cb9cb9197fb64a830cea6c0550d0e, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: b20cb9cb9197fb64a830cea6c0550d0e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b20cb9cb9197fb64a830cea6c0550d0e, type: 3}
       propertyPath: m_RootOrder

@@ -9,7 +9,8 @@ public class CharacterData : MonoBehaviour
     public CharacterData_SO templateData;
     public CharacterData_SO characterData;
     public AttackData_SO attackData;
-    public AttackData_SO bas_atkData;
+    private AttackData_SO bas_atkData;
+    private RuntimeAnimatorController bas_anim;
     public bool broken;       //动作被打断
     [Header("Weapon")]
     public Transform weaponPos;
@@ -24,6 +25,7 @@ public class CharacterData : MonoBehaviour
             characterData = Instantiate(templateData);
         }
         bas_atkData = Instantiate(attackData);
+        bas_anim = GetComponent<Animator>().runtimeAnimatorController;
         InventoryManager.Instance.UpdatePlayerDataText(maxHealth, attackData.minDamage, attackData.maxDamage);
     }
     #region R/W from Data_SO
@@ -112,6 +114,7 @@ public class CharacterData : MonoBehaviour
         }
         attackData.SetUp(weapon.weaponData);
         InventoryManager.Instance.UpdatePlayerDataText(maxHealth, attackData.minDamage, attackData.maxDamage);
+        GetComponent<Animator>().runtimeAnimatorController = weapon.anim;
     }
     public void Unwield()
     {
@@ -124,6 +127,7 @@ public class CharacterData : MonoBehaviour
         }
         attackData.SetUp(bas_atkData); //还原默认值
         InventoryManager.Instance.UpdatePlayerDataText(maxHealth, attackData.minDamage, attackData.maxDamage);
+        GetComponent<Animator>().runtimeAnimatorController = bas_anim;
     }
     #endregion
     public void Heal(int point)
