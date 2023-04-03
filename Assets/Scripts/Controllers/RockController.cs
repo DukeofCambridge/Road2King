@@ -20,11 +20,10 @@ public class RockController : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.velocity = Vector3.one; //·ÀÖ¹³õÊ¼ËÙ¶ÈÎª0µ¼ÖÂÊ¯Í·±»ÅĞ¶¨ÎªÒÑÂäµØ¾²Ö¹
+        rb.velocity = Vector3.one; //é˜²æ­¢åˆå§‹é€Ÿåº¦ä¸º0å¯¼è‡´çŸ³å¤´è¢«åˆ¤å®šä¸ºå·²è½åœ°é™æ­¢
         state = RockState.HitPlayer;
         Fly2Target();
     }
-    //TODO: µ÷ÓÃrigidbodyĞèÒª·ÅÔÚfixedupdateÀï£¨ÎªÊ²Ã´£¿£©
     private void FixedUpdate()
     {
         if (rb.velocity.sqrMagnitude < 1f)
@@ -35,7 +34,7 @@ public class RockController : MonoBehaviour
 
     public void Fly2Target()
     {
-        //±ÜÃâÊ¯Í·Éú³ÉÊ±Íæ¼ÒÍÑÀëÊÓÒ°µ¼ÖÂ¶ªÊ§Ä¿±ê
+        //é¿å…çŸ³å¤´ç”Ÿæˆæ—¶ç©å®¶è„±ç¦»è§†é‡å¯¼è‡´ä¸¢å¤±ç›®æ ‡
         if (target == null)
         {
             target = FindObjectOfType<PlayerController>().gameObject;

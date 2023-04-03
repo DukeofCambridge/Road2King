@@ -17,6 +17,7 @@ public class ItemData_SO : ScriptableObject
     public GameObject prefab;
     public AttackData_SO weaponData;
     public AnimatorOverrideController anim; //武器对应的动画
+    //public Transform weaponPos; //武器生成的位置
     [Header("Consumables")]
     public ConsumableData_SO consumeData;
 }

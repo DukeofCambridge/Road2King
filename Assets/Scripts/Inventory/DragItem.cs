@@ -78,7 +78,7 @@ public class DragItem : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDragHan
         var temp = origin.itemUI.bag.items[origin.itemUI.index];
         if (target.itemUI.bag == origin.itemUI.bag && target.itemUI.index == origin.itemUI.index)
         {
-            return;  //同一格子
+            return;  //同一格子，不作处理
         }
         //Debug.Log(temp.ItemData.name);
         bool isSameItem = temp.ItemData == targetItem.ItemData;

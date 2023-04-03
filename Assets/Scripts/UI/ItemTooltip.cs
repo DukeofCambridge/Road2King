@@ -32,7 +32,7 @@ public class ItemTooltip : MonoBehaviour
         rt.GetWorldCorners(corners);
         float width = corners[3].x - corners[0].x;
         float height = corners[1].y - corners[0].y;
-        //¸ù¾İÊó±êÔÚÆÁÄ»µÄÎ»ÖÃ¾ö¶¨ToolTipÉú³ÉµÄÎ»ÖÃ
+        //æ ¹æ®é¼ æ ‡åœ¨å±å¹•çš„ä½ç½®å†³å®šToolTipç”Ÿæˆçš„ä½ç½®
         if (mousePos.y < height)
         {
             rt.position = mousePos + Vector3.up * height*0.6f;

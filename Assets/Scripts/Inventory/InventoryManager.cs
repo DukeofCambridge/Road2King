@@ -16,7 +16,10 @@ public class InventoryManager : Singleton<InventoryManager>
     [Header("Player Data")]
     public Text maxHealthText;
     public Text atkText;
-    [Header("Inventory Data")]
+    [Header("Inventory Data")] 
+    public InventoryData_SO TemplateBagData;
+    public InventoryData_SO TemplateActionData;
+    public InventoryData_SO TemplateStatusData;
     public InventoryData_SO BagData;     //背包
     public InventoryData_SO ActionData;  //行动栏
     public InventoryData_SO StatusData;  //角色当前装备
@@ -29,6 +32,18 @@ public class InventoryManager : Singleton<InventoryManager>
     public DragData curDrag;
     [Header("Tooltip")]
     public ItemTooltip tooltip;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        if (TemplateBagData != null)
+            BagData = Instantiate(TemplateBagData);
+        if (TemplateActionData != null)
+            ActionData = Instantiate(TemplateActionData);
+        if (TemplateStatusData != null)
+            StatusData = Instantiate(TemplateStatusData);
+    }
+
     private void Start()
     {
         Instance.BagUI.UpdateUI();
@@ -92,4 +107,17 @@ public class InventoryManager : Singleton<InventoryManager>
         return false;
     }
     #endregion
+
+    public void SaveInventory()
+    {
+        SaveManager.Instance.Save(BagData,BagData.name);
+        SaveManager.Instance.Save(ActionData,ActionData.name);
+        SaveManager.Instance.Save(StatusData,StatusData.name);
+    }
+    public void LoadInventory()
+    {
+        SaveManager.Instance.Load(BagData,BagData.name);
+        SaveManager.Instance.Load(ActionData,ActionData.name);
+        SaveManager.Instance.Load(StatusData,StatusData.name);
+    }
 }
