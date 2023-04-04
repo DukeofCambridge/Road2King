@@ -18,7 +18,7 @@ MonoBehaviour:
   amount: 1
   description: "\u4E00\u628A\u666E\u901A\u7684\u94C1\u5251"
   stackAmount: 1
-  prefab: {fileID: 1426137324128326985, guid: d76262d1c7eccf643abc2b7a1ed68eb2, type: 3}
+  prefab: {fileID: 1942208274192620359, guid: 6342ef07c867f3841b5c745bef27d2c6, type: 3}
   weaponData: {fileID: 11400000, guid: 3592abb3ca32ee24db36a86f8cb955f5, type: 2}
   anim: {fileID: 22100000, guid: 1a2bfa6f6d4c3844ca6b1847c90acec7, type: 2}
   consumeData: {fileID: 0}

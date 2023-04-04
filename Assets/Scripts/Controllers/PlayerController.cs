@@ -118,7 +118,7 @@ public class PlayerController : MonoBehaviour
         //}
     }
     //动画关键帧触发打击效果
-    void hit()
+    void Hit()
     {
         if (attackObj.CompareTag("Attackable"))
         {
