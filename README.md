@@ -1,14 +1,11 @@
 # 3Drpg Game Demo
 
 ![Untitled](./IMG4MD/home.PNG)
-<center>
-	<img src="./IMG4MD/C1.png" width="30%" />
-	<img src="./IMG4MD/C2.png" width="30%"/>
-    <img src="./IMG4MD/C3.png" width="30%" />
-	<br/>
-</center>
-<br/>
-
+<div align=center>
+	<img src="./IMG4MD/C1.png" />
+	<img src="./IMG4MD/C2.png" />
+    <img src="./IMG4MD/C3.png" />
+</div>
 
 # 3C
 
