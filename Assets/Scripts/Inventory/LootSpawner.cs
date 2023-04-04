@@ -11,11 +11,4 @@ public class LootSpawner : MonoBehaviour
         [Range(0, 1)]
         public float weight;
     }
-
-    public LootItem[] lootItems;
-
-    public void SpawnLoot()
-    {
-        
-    }
 }

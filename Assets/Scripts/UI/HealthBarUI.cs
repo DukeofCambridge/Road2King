@@ -32,13 +32,13 @@ public class HealthBarUI : MonoBehaviour
             }
         }
     }
-    //UIæ¸²æŸ“å’Œæ›´æ–°åº”è¯¥æ”¾åœ¨LateUpdateéƒ¨åˆ†ï¼Œé˜²æ­¢é•œå¤´é—ªçƒ
+    //UIäÖÈ¾ºÍ¸üĞÂÓ¦¸Ã·ÅÔÚLateUpdate²¿·Ö£¬·ÀÖ¹¾µÍ·ÉÁË¸
     private void LateUpdate()
     {
         if (UIbar != null)
         {
             UIbar.position = barPos.position;
-            //ä¿æŒé¢å‘é•œå¤´
+            //±£³ÖÃæÏò¾µÍ·
             UIbar.forward = -camera.forward;
             if (visibleTimeLeft <= 0 && !AlwaysVisible)
             {
@@ -55,7 +55,7 @@ public class HealthBarUI : MonoBehaviour
         }
         UIbar.gameObject.SetActive(true);
         visibleTimeLeft = visibleTime;
-        //æ ¹æ®è¡€é‡ç™¾åˆ†æ¯”è®¾ç½®UI
+        //¸ù¾İÑªÁ¿°Ù·Ö±ÈÉèÖÃUI
         float sliderPercent = (float)curHealth / maxHealth;
         healthSlider.fillAmount = sliderPercent;
     }

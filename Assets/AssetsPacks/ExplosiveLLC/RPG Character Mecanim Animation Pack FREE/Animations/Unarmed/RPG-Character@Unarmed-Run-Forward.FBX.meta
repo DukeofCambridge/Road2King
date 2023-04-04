@@ -749,7 +749,7 @@ ModelImporter:
       name: Unarmed-Run-Forward
       takeName: Take 001
       internalID: 7400000
-      firstFrame: 0
+      firstFrame: 8.7
       lastFrame: 24
       wrapMode: 0
       orientationOffsetY: 0

@@ -21,12 +21,10 @@ public class SaveManager : Singleton<SaveManager>
         if (Input.GetKeyDown(KeyCode.S))
         {
             SavePlayerData();
-            
         }
         if (Input.GetKeyDown(KeyCode.L))
         {
             LoadPlayerData();
-            
         }
     }
 
@@ -34,12 +32,10 @@ public class SaveManager : Singleton<SaveManager>
     {
         Debug.Log("±£´æ³É¹¦£¡");
         Save(GameManager.Instance.playerData.characterData, GameManager.Instance.playerData.characterData.name);
-        InventoryManager.Instance.SaveInventory();
     }
     public void LoadPlayerData()
     {
         Load(GameManager.Instance.playerData.characterData, GameManager.Instance.playerData.characterData.name);
-        InventoryManager.Instance.LoadInventory();
     }
     public void Save(Object data, string key)
     {
