@@ -25,6 +25,7 @@ public class MouseManager : Singleton<MouseManager>
     void Update()
     {
         setCursorTexture();
+        //与UI交互则不触发大世界点击事件
         if (isInteractWithUI()) return;
         mouseControl();
     }
@@ -47,6 +48,12 @@ public class MouseManager : Singleton<MouseManager>
     void setCursorTexture()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //与UI交互锁定鼠标样式
+        if (isInteractWithUI())
+        {
+            Cursor.SetCursor(point, Vector2.zero, CursorMode.Auto);
+            return;
+        }
         if(Physics.Raycast(ray,out hitInfo))
         {
             switch (hitInfo.collider.gameObject.tag)
